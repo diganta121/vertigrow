@@ -124,13 +124,7 @@ void loop()
 
     
     //waterstat = ( 100.00 - ( (analogRead(moisturePin) / 1023.00) * 100.00 ) );    //% of moisture not needed
-    if(digitalRead(moisturePin) == HIGH){
-      waterstat = HIGH;
-    }
-    else{
-      waterstat = LOW;
-
-    }
+   
     
 
  
@@ -142,16 +136,33 @@ void loop()
   }
  
     if ((unsigned long)(currentMillis - previousMillis1) >= 4000) {
-      
-    Serial.print("waterstat :");
-    Serial.print(waterstat);
+     
+     digitalWrite(ledW,HIGH);
+					digitalWrite(ledR,HIGH);
+     delay(800);
+     digitalWrite(ledW,LOW);
+					digitalWrite(ledR,HIGH);
+     delay(800);
+     digitalWrite(ledW,HIGH);
+					digitalWrite(ledR,LOW);
+					delay(800);
+					digitalWrite(ledW,LOW);
+					digitalWrite(ledR,LOW);
+					
+     h = dht.readHumidity();     // read humiduty
+
+     t = dht.readTemperature();     // read temperature 
+     if(digitalRead(moisturePin) == HIGH){
+       waterstat = HIGH;
+     }
+    else{
+      waterstat = LOW;
+
+    }
+ 
     
     ReadHeight();
-
-    h = dht.readHumidity();     // read humiduty
-
-    t = dht.readTemperature();     // read temperature
-
+     
 
       if ( waterstat == HIGH) {
  
@@ -159,7 +170,9 @@ void loop()
       delay(10000);
       digitalWrite(motorPin, HIGH);
       }
-  
+     
+     Serial.print("waterstat :");
+     Serial.print(waterstat);
   
   previousMillis1 = millis();
   }
@@ -170,7 +183,7 @@ void loop()
  
   }
 
-  if ((unsigned long)(currentMillis - previousMillis1) >= 16000) {
+  if ((unsigned long)(currentMillis - previousMillis1) >= 19000) {
     sendThingspeak();                                                       //send data to thing speak
     delay(1000);
     readThingspeak();
@@ -178,10 +191,16 @@ void loop()
   }
  
   if ((unsigned long)(currentMillis - previousMillis) >= interval) {
+			  
+			
   previousMillis = millis();
   client.stop();
   }
-
+					digitalWrite(ledW,HIGH);
+					digitalWrite(ledR,HIGH);
+					delay(500);
+					digitalWrite(ledW,LOW);
+					digitalWrite(ledR,LOW);
  
 }
 
@@ -222,7 +241,7 @@ void sendThingspeak() {
   else{
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
-  delay(15000);
+  delay(5000);
 
 
   //2024881 , DLBYTPLUVFWRWQ39
@@ -233,7 +252,7 @@ void sendThingspeak() {
   else{
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
-  delay(15000);
+  delay(5000);
 
  
   int x3 = ThingSpeak.writeField(ChNo3, 3, Height , WKey3);
@@ -243,7 +262,7 @@ void sendThingspeak() {
   else{
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
-  delay(15000);
+  delay(5000);
 
  
   int x4 = ThingSpeak.writeField(ChNo4, 1,motorState ,WKey4);
@@ -253,7 +272,7 @@ void sendThingspeak() {
   else{
     Serial.println("Problem updating channel. HTTP error code " + String(x));
   }
-  delay(15000);
+  delay(5000);
  
    //2024863 , UM2LIQ4CXULYHE2V
   int x1 = ThingSpeak.writeField(ChNo4, 1, waterstat, WKey4); //moisture percentage
@@ -296,19 +315,21 @@ void readThingspeak() {
   delay(15000); // No need to read the counter too often.
 
   
-  lightState = ThingSpeak.readLongField(ChNo1, 3, myReadAPIKey);
-  // Check the status of the read operation to see if it was successful
-  int statusCode2 = 0;
-  statusCode2 = ThingSpeak.getLastReadStatus();
-  if (statusCode2 == 200)
-  {
-    Serial.println("Read: " + String(motorState));
-  }
-  else
-  {
-    Serial.println(F("Problem reading channel"));
-  }
+//   lightState = ThingSpeak.readLongField(ChNo1, 3, myReadAPIKey);
+//   // Check the status of the read operation to see if it was successful
+//   int statusCode2 = 0;
+//   statusCode2 = ThingSpeak.getLastReadStatus();
+//   if (statusCode2 == 200)
+//   {
+//     Serial.println("Read: " + String(lightState));
+//   }
+//   else
+//   {
+//     Serial.println(F("Problem reading channel"));
+//   }
   
+ 
+ 
   digitalWrite(ledR,LOW);
 }
 
