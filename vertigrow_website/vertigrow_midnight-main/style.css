@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding:0;
+    font font-family:sans-serif;
+}
+.banner{
+    width:100%;
+    height:100vh;
+    background-image: url("vert.png");
+    background-size: cover;
+    background-position: center;
+}
+.navbar 
+{
+    font-family: Century Gothic, sans-serif;
+    font-size: 7;
+    margin:0;
+    height:60px;
+    list-style-type: none;
+}
+.navbar li
+{   
+    float:right;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 7;
+    display: inline;
+    margin-right:10px;
+    margin-top: 2px;
+    position: relative;
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+.navbar ul li::after{
+    content: '';
+    height: 1px;
+    width: 0;
+    background: #3CB043;
+    position:absolute;
+    left: 0;
+    bottom: -1px;
+    transition: 0.5s;
+}
+.navbar ul li:hover::after{
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+    
