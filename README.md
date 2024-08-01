@@ -17,3 +17,15 @@ Data based decisions at the farm level can improve resource utilisation and cons
 
 #app
 https://snack.expo.dev/@diganta14459499/vertigrow_appv5?
+
+#Note
+this project was submitted for alphabyte 3.0 interschool competition
+
+##we won first prize due to our teams efforts
+ - the programming and electronics - Diganta Dutta (me)
+ - website design and waterproofing - Abhijith T S
+
+
+
+
+
